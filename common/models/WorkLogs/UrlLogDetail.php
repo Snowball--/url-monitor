@@ -45,6 +45,8 @@ class UrlLogDetail extends \yii\db\ActiveRecord implements LogDetailInterface
 
     public function getLog(): WorkLog
     {
-        return $this->hasOne(WorkLog::class, ['id' => 'id'])->one();
+        /* @var WorkLog $log*/
+        $log = $this->hasOne(WorkLog::class, ['id' => 'id'])->one();
+        return $log;
     }
 }
