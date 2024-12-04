@@ -3,10 +3,19 @@ declare(strict_types=1);
 
 namespace common\models\Works\Processors;
 
+use common\Exceptions\ValidationException;
+use common\models\WorkLogs\LogDetailInterface;
+use common\models\WorkLogs\UrlLogDetail;
 use common\models\WorkLogs\WorkLog;
+use common\models\WorkLogs\WorkLogState;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 use Throwable;
+use Yii;
 use yii\base\Model;
+use yii\db\Exception;
+use yii\log\Logger;
 
 /**
  * Class UrlMonitorProcessor
@@ -18,15 +27,67 @@ class UrlMonitorProcessor extends Model implements WorkProcessorInterface
 {
     private static Client|null $client = null;
 
+    /**
+     * @throws GuzzleException
+     * @throws Throwable
+     */
     public function process(WorkLog $job): void
     {
         try {
             $httpClient = $this->getHttpClient();
-            $response = $httpClient->request('GET', $job->getDetails()->url);
-            dd($response);
-        } catch (Throwable $e) {
+            $work = $job->getWork();
+            $response = $httpClient->request('GET', $work->getExtendedEntity()->url);
 
+            $this->writeJobResult($job, $response);
+        } catch (Throwable $e) {
+            Yii::$app->log->logger->log($e, Logger::LEVEL_ERROR, 'console');
+            throw $e;
         }
+    }
+
+    /**
+     * @throws Exception
+     * @throws ValidationException
+     * @throws Throwable
+     */
+    private function writeJobResult(WorkLog $job, $response)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+
+        try {
+            $job->setDateProcessed(new \DateTimeImmutable('now'));
+            $job->state = WorkLogState::FAIL->value;
+
+            if ($response instanceof ResponseInterface) {
+                $job->state = $response->getStatusCode() === 200 ? WorkLogState::SUCCESS->value : $job->state;
+
+                $detailsClass = $job->getWork()->getType()->getLogDetailsClass();
+
+                /* @var UrlLogDetail $jobDetails */
+                $jobDetails = new $detailsClass();
+                $jobDetails->setId($job->id);
+                $jobDetails->response_code = $response->getStatusCode();
+                $jobDetails->response_body = $response->getBody()->getContents();
+
+                if (!$jobDetails->save()) {
+                    throw new ValidationException($jobDetails);
+                }
+            }
+
+            if (!$job->save()) {
+                throw new ValidationException($job);
+            }
+
+            $transaction->commit();
+        } catch (Throwable $e) {
+            Yii::$app->log->logger->log($e->getMessage(), Logger::LEVEL_ERROR);
+            $transaction->rollBack();
+
+            throw $e;
+        }
+
+        return $job;
     }
 
     private function getHttpClient(): \GuzzleHttp\Client

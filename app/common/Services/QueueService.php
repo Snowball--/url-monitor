@@ -35,7 +35,7 @@ class QueueService
         $needToQueue = false;
         $lastJob = $work->getLastJob();
         if (!$lastJob) {
-            $needToQueue = true;
+            return true;
         }
 
         $nowDate = new Datetime('now');

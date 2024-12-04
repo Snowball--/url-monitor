@@ -63,15 +63,16 @@ class WorkLog extends ActiveRecord
         return WorkLogState::fromValue($this->state);
     }
 
-    public function getWork(): ActiveQuery
+    public function getWork(): Work
     {
-        return $this->hasOne(Work::class, ['id' => 'work_id']);
+        /* @var Work $work */
+        $work = $this->hasOne(Work::class, ['id' => 'work_id'])->one();
+        return $work;
     }
 
     public function getDetails(): array|ActiveRecord|null
     {
-        /* @var Work $work */
-        $work = $this->getWork()->one();
+        $work = $this->getWork();
         return $this->hasOne($work->getType()->getLogDetailsClass(), ['id' => 'id'])->one();
     }
 
@@ -83,6 +84,11 @@ class WorkLog extends ActiveRecord
     public function getDateProcessed(): ?DateTimeImmutable
     {
         return $this->dateProcessed;
+    }
+
+    public function setDateProcessed(DateTimeImmutable $date)
+    {
+        $this->dateProcessed = $date;
     }
 
     public function beforeSave($insert): bool

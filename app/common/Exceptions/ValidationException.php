@@ -15,8 +15,16 @@ use yii\base\Model;
  */
 class ValidationException extends Exception
 {
-    public function __construct(private readonly Model $model, string $message = "", int $code = 0, ?Throwable $previous = null)
-    {
+    public function __construct(
+        private readonly Model $model,
+        string $message = "",
+        int $code = 0,
+        ?Throwable $previous = null
+    ) {
+        if ($message === '') {
+            $errors = $this->model->getFirstErrors();
+            $message = reset($errors);
+        }
         parent::__construct($message, $code, $previous);
     }
 
