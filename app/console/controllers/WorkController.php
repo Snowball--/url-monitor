@@ -24,9 +24,7 @@ class WorkController extends Controller
     public function actionQueue(QueueService $queueService): void
     {
         foreach (Work::find()->allActive()->each() as $work) {
-            if (!$work->hasActiveJob()) {
-                $queueService->addJob($work);
-            }
+            $queueService->addJob($work);
         }
     }
 }

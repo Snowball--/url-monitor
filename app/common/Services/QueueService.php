@@ -24,10 +24,26 @@ class QueueService
 
     public function addJob(Work $work): void
     {
-        $lastJob = $work->getLastJob();
-        if (!$lastJob) {
+        if ($this->needToQueue($work)) {
             $log = $this->toQueue($work);
         }
+    }
+
+    private function needToQueue(Work $work): bool
+    {
+        $needToQueue = false;
+        $lastJob = $work->getLastJob();
+        if (!$lastJob) {
+            $needToQueue = true;
+        }
+
+        if ($lastJob->getState() === WorkLogState::SUCCESS
+            && $lastJob->getD
+        ) {
+
+        }
+
+        return $needToQueue;
     }
 
     /**

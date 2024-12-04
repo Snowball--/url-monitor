@@ -20,29 +20,8 @@ services:
     ports:
       - 8081:80
 
-#  frontend:
-#    build: frontend
-#    ports:
-#      - 20080:80
-#    volumes:
-#      # Re-use local composer cache via host-volume
-#      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-#      # Mount source-code for development
-#      - ./:/app
-#
-#
-#  backend:
-#    build: backend
-#    ports:
-#      - 21080:80
-#    volumes:
-#      # Re-use local composer cache via host-volume
-#      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-#      # Mount source-code for development
-#      - ./:/app
-
   db:
-    image: mariadb
+    image: mariadb:11.2.4-jammy
     environment:
       - MYSQL_ROOT_PASSWORD=somepassword
       - MYSQL_DATABASE=url_monitor
@@ -52,10 +31,3 @@ services:
       - ./mysql:/var/lib/mysql
     ports:
         - 30006:3306
-
-  #pgsql:
-  #  image: postgres:9.5
-  #  environment:
-  #    - POSTGRES_DB=yii2advanced
-  #    - POSTGRES_USER=yii2advanced
-  #    - POSTGRES_PASSWORD=secret
