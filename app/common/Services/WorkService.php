@@ -19,11 +19,6 @@ use yii\db\Exception;
  */
 class WorkService
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * @throws Exception
      * @throws Throwable

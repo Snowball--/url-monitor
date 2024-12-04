@@ -2,6 +2,7 @@
 
 namespace common\models\WorkLogs;
 
+use common\models\WorkLogs\ActiveQuery\WorkLogQuery;
 use common\models\Works\Work;
 use yii\db\ActiveQuery;
 
@@ -60,5 +61,10 @@ class WorkLog extends \yii\db\ActiveRecord
         /* @var Work $work */
         $work = $this->getWork()->one();
         return $this->hasOne($work->getType()->getLogDetailsClass(), ['id', 'id'])->one();
+    }
+
+    public static function find(): WorkLogQuery
+    {
+        return new WorkLogQuery(static::class);
     }
 }

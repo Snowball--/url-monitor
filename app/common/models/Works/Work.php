@@ -2,6 +2,8 @@
 
 namespace common\models\Works;
 
+use common\models\WorkLogs\WorkLog;
+use common\models\Works\ActiveQuery\WorkQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -64,6 +66,11 @@ class Work extends ActiveRecord
         return $this->hasOne($this->getType()->getExtendedEntityClass(), ['id' => 'id'])->one();
     }
 
+    public function hasActiveJob(): bool
+    {
+        return WorkLog::find()->allActiveForWork($this)->count() > 0;
+    }
+
     public function beforeSave($insert): bool
     {
         if ($insert) {
@@ -71,5 +78,10 @@ class Work extends ActiveRecord
         }
 
         return parent::beforeSave($insert);
+    }
+
+    public static function find(): WorkQuery
+    {
+        return new WorkQuery(static::class);
     }
 }
