@@ -7,6 +7,7 @@ use common\Services\WorkService;
 return [
     'definitions' => [
         WorkService::class => WorkService::class,
-        WorkLogService::class => WorkLogService::class
+        WorkLogService::class => WorkLogService::class,
+        \common\Services\QueueService::class => \common\Services\QueueService::class
     ]
 ];

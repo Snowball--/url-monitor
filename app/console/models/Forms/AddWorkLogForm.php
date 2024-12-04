@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace console\Forms;
+namespace console\models\Forms;
 
 use common\models\Forms\AddWorkLogFormInterface;
 use common\models\WorkLogs\WorkLogState;

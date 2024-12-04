@@ -7,7 +7,7 @@ use common\Exceptions\ValidationException;
 use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
 use common\models\Works\Work;
-use console\Forms\AddWorkLogForm;
+use console\models\Forms\AddWorkLogForm;
 
 /**
  * Class QueueService

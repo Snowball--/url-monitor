@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace console\controllers;
 
 use common\models\Works\Work;
+use common\Services\QueueService;
 use yii\console\Controller;
 
 /**
@@ -16,14 +17,16 @@ class WorkController extends Controller
 {
     /**
      * Fill queue with work jobs
+     *
+     * @param QueueService $queueService
      * @return void
      */
-    public function actionQueue()
+    public function actionQueue(QueueService $queueService): void
     {
-        Work::find()->allActive()->each(function (Work $work) {
+        foreach (Work::find()->allActive()->each() as $work) {
             if (!$work->hasActiveJob()) {
-
+                $queueService->addJob($work);
             }
-        });
+        }
     }
 }
