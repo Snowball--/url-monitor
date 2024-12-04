@@ -72,7 +72,17 @@ class WorkLog extends ActiveRecord
     {
         /* @var Work $work */
         $work = $this->getWork()->one();
-        return $this->hasOne($work->getType()->getLogDetailsClass(), ['id', 'id'])->one();
+        return $this->hasOne($work->getType()->getLogDetailsClass(), ['id' => 'id'])->one();
+    }
+
+    public function getDateCreated(): DateTimeImmutable
+    {
+        return $this->dateCreated;
+    }
+
+    public function getDateProcessed(): ?DateTimeImmutable
+    {
+        return $this->dateProcessed;
     }
 
     public function beforeSave($insert): bool

@@ -26,4 +26,9 @@ class WorkLogQuery extends ActiveQuery
         return $this->andWhere(['work_id' => $work->id])
             ->orderBy(['id' => SORT_DESC]);
     }
+
+    public function allNew(): self
+    {
+        return $this->andWhere(['state' => WorkLogState::NEW]);
+    }
 }

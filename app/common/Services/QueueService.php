@@ -8,6 +8,7 @@ use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
 use common\models\Works\Work;
 use console\models\Forms\AddWorkLogForm;
+use DateTime;
 
 /**
  * Class QueueService
@@ -37,10 +38,22 @@ class QueueService
             $needToQueue = true;
         }
 
+        $nowDate = new Datetime('now');
         if ($lastJob->getState() === WorkLogState::SUCCESS
-            && $lastJob->getD
+            && $lastJob->getDateProcessed() < $nowDate->add(
+                \DateInterval::createFromDateString("-{$work->frequency} minutes")
+            )
         ) {
+            $needToQueue = true;
+        }
 
+        if ($lastJob->getState() === WorkLogState::FAIL
+            && $lastJob->attempt_number < $work->on_error_repeat_count
+            && $lastJob->getDateProcessed() < $nowDate->add(
+                \DateInterval::createFromDateString("-{$work->on_error_repeat_delay} minutes")
+            )
+        ) {
+            $needToQueue = true;
         }
 
         return $needToQueue;

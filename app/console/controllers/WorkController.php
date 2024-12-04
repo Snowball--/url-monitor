@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace console\controllers;
 
+use common\models\WorkLogs\WorkLog;
+use common\models\Works\Processors\UrlMonitorProcessor;
 use common\models\Works\Work;
 use common\Services\QueueService;
 use yii\console\Controller;
@@ -25,6 +27,14 @@ class WorkController extends Controller
     {
         foreach (Work::find()->allActive()->each() as $work) {
             $queueService->addJob($work);
+        }
+    }
+
+    public function actionRun(): void
+    {
+        $processor = new UrlMonitorProcessor();
+        foreach (WorkLog::find()->allNew()->all() as $workLog) {
+            $processor->process($workLog);
         }
     }
 }
