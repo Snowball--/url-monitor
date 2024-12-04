@@ -71,6 +71,13 @@ class Work extends ActiveRecord
         return WorkLog::find()->allActiveForWork($this)->count() > 0;
     }
 
+    public function getLastJob(): ?WorkLog
+    {
+        /* @var WorkLog $lastJob */
+        $lastJob = WorkLog::find()->lastForWork($this)->one();
+        return $lastJob;
+    }
+
     public function beforeSave($insert): bool
     {
         if ($insert) {
