@@ -63,4 +63,13 @@ class Work extends ActiveRecord
     {
         return $this->hasOne($this->getType()->getExtendedEntityClass(), ['id' => 'id'])->one();
     }
+
+    public function beforeSave($insert): bool
+    {
+        if ($insert) {
+            $this->date_created = date('Y-m-d H:i:s');
+        }
+
+        return parent::beforeSave($insert);
+    }
 }

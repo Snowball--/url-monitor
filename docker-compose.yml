@@ -48,6 +48,10 @@ services:
       - MYSQL_DATABASE=url_monitor
       - MYSQL_USER=url_monitor
       - MYSQL_PASSWORD=testtest
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+        - 30006:3306
 
   #pgsql:
   #  image: postgres:9.5

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\Services\WorkService;
 use frontend\models\Form\AddUrlMonitorWorkForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -35,15 +36,14 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return mixed
+     * @throws \Throwable
      */
-    public function actionIndex()
+    public function actionIndex(WorkService $workService): string
     {
         $form = new AddUrlMonitorWorkForm();
 
         if ($form->load($this->request->post()) && $form->validate()) {
+            $work = $workService->addWork($form);
             Yii::$app->session->setFlash("success", "Url успешно добавлен к мониторингу доступности");
         }
 

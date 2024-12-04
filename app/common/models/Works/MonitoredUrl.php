@@ -8,7 +8,7 @@ namespace common\models\Works;
  * @property int $id
  * @property string|null $url
  */
-class MonitoredUrl extends \yii\db\ActiveRecord
+class MonitoredUrl extends \yii\db\ActiveRecord implements ExtendedWorkEntityInterface
 {
     /**
      * {@inheritdoc}
@@ -24,7 +24,8 @@ class MonitoredUrl extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url'], 'string', 'max' => 255],
+            ['url', 'string', 'max' => 255],
+            ['url', 'url'],
         ];
     }
 
@@ -37,5 +38,15 @@ class MonitoredUrl extends \yii\db\ActiveRecord
             'id' => 'ID',
             'url' => 'Url',
         ];
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }
