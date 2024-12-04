@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Form\AddUrlMonitorWorkForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -24,46 +25,11 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
-            ],
-            'captcha' => [
-                'class' => \yii\captcha\CaptchaAction::class,
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -75,7 +41,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $form = new AddUrlMonitorWorkForm();
+
+        if ($form->load($this->request->post()) && $form->validate()) {
+            Yii::$app->session->setFlash("success", "Url успешно добавлен к мониторингу доступности");
+        }
+
+        return $this->render('urlMonitorForm', [
+            'model' => $form
+        ]);
     }
 
     /**
