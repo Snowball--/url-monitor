@@ -7,5 +7,9 @@ use common\models\Jobs\JobInterface;
 
 interface JobProcessorInterface
 {
-    public function process(JobInterface $job): void;
+    /**
+     * @param JobInterface $job
+     * @return mixed
+     */
+    public function process(JobInterface $job): mixed;
 }

@@ -9,4 +9,6 @@ interface LogDetailInterface
     public function getId(): ?int;
 
     public function setId(int $id);
+
+    public function fillDetailWithData($data);
 }

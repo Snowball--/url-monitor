@@ -2,6 +2,8 @@
 
 namespace common\models\WorkLogs;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * This is the model class for table "monitored_url_log_details".
  *
@@ -58,5 +60,13 @@ class UrlLogDetail extends \yii\db\ActiveRecord implements LogDetailInterface
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+
+    public function fillDetailWithData($data)
+    {
+        if ($data instanceof ResponseInterface) {
+            $this->response_code = $data->getStatusCode();
+            $this->response_body = $data->getBody()->getContents();
+        }
     }
 }

@@ -41,10 +41,10 @@ class QueueService
         }
     }
 
-    public function pop(): \Generator
+    public function pop()
     {
         foreach ($this->jobService->getAll() as $job) {
-            yield $job;
+            return $job;
         }
 
     }

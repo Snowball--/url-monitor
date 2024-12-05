@@ -9,6 +9,7 @@ use common\models\WorkLogs\LogDetailInterface;
 use common\models\WorkLogs\UrlLogDetail;
 use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
+use common\Services\WorkLogService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -28,11 +29,16 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
 {
     private static Client|null $client = null;
 
+    public function __construct(private readonly WorkLogService $workLogService, $config = [])
+    {
+        parent::__construct($config);
+    }
+
     /**
      * @throws GuzzleException
      * @throws Throwable
      */
-    public function process(JobInterface $job): void
+    public function process(JobInterface $job): mixed
     {
         try {
             $httpClient = $this->getHttpClient();
@@ -44,11 +50,12 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
             }
 
             $response = $httpClient->request('GET', $url);
-            $this->writeJobResult($job, $response);
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e, Logger::LEVEL_ERROR, 'console');
             throw $e;
         }
+
+        return $response;
     }
 
     /**

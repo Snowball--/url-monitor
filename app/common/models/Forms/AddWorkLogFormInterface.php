@@ -14,5 +14,7 @@ interface AddWorkLogFormInterface
 
     public function getAttemptNumber(): int;
 
-    public function writeDetailedData(WorkLog $log): LogDetailInterface;
+    public function getDetailedData(): mixed;
+
+    public function writeDetailedData(WorkLog $log): ?LogDetailInterface;
 }
