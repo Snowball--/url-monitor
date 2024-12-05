@@ -2,6 +2,7 @@
 
 namespace common\models\Works;
 
+use common\Enums\WorkType;
 use common\models\WorkLogs\WorkLog;
 use common\models\Works\ActiveQuery\WorkQuery;
 use yii\db\ActiveRecord;
@@ -19,6 +20,11 @@ use yii\db\ActiveRecord;
  */
 class Work extends ActiveRecord
 {
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+    }
+
     /**
      * {@inheritdoc}
      */

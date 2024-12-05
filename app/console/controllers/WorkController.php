@@ -6,7 +6,7 @@ namespace console\controllers;
 use common\models\WorkLogs\WorkLog;
 use common\models\Works\Processors\UrlMonitorProcessor;
 use common\models\Works\Work;
-use common\Services\QueueService;
+use common\Services\Queue\QueueService;
 use yii\console\Controller;
 
 /**

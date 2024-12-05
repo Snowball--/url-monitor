@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models\Works;
+namespace common\Enums;
 
 use common\models\WorkLogs\UrlLogDetail;
+use common\models\Works\MonitoredUrl;
 
 enum WorkType: string
 {

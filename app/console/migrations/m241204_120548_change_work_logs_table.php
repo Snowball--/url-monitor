@@ -22,19 +22,4 @@ class m241204_120548_change_work_logs_table extends Migration
         $this->dropColumn(WorkLog::tableName(), 'date_processed');
         $this->renameColumn(WorkLog::tableName(), 'date_created', 'date_time');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m241204_120548_change_work_logs_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

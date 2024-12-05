@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace common\models\Forms;
 
-use common\models\Works\WorkType;
+use common\Enums\WorkType;
 
 interface AddWorkFormInterface
 {

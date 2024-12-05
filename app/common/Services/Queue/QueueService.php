@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace common\Services;
+namespace common\Services\Queue;
 
 use common\Exceptions\ValidationException;
 use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
 use common\models\Works\Work;
+use common\Services\Queue\QueueDataProvider\QueueDataProviderInterface;
 use console\models\Forms\AddWorkLogForm;
 use DateTime;
 
@@ -18,7 +19,7 @@ use DateTime;
  */
 class QueueService
 {
-    public function __construct(private readonly WorkLogService $workLogService)
+    public function __construct(private readonly QueueDataProviderInterface $dataProvider)
     {
 
     }

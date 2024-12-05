@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace common\models\Works\ActiveQuery;
 
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
-use common\models\Works\WorkActivity;
+use common\Enums\WorkActivity;
+use common\models\Works\Work;
 use yii\db\ActiveQuery;
 
 /**
@@ -20,5 +19,12 @@ class WorkQuery extends ActiveQuery
     public function allActive(): self
     {
         return $this->where(['is_active' => WorkActivity::ACTIVE]);
+    }
+
+    public function byId(int $id): ?Work
+    {
+        /* @var Work $work */
+        $work = $this->where(['id' => $id])->one();
+        return $work;
     }
 }

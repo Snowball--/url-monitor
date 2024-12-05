@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace common\models\Works;
+namespace common\Enums;
 
 enum WorkActivity: int
 {

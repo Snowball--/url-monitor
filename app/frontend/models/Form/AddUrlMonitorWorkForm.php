@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace frontend\models\Form;
 
+use common\Enums\WorkType;
 use common\models\Forms\AddWorkFormInterface;
-use common\models\Works\WorkType;
 use yii\base\Model;
 
 class AddUrlMonitorWorkForm extends Model implements AddWorkFormInterface

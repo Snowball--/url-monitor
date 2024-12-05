@@ -50,19 +50,4 @@ class m241203_150325_add_monitoring_urls_table extends Migration
         $this->dropTable('work_logs');
         $this->dropTable('monitored_url_log_details');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m241203_150325_add_monitoring_urls_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
