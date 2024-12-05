@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace console\controllers;
 
+use common\models\Jobs\JobInterface;
 use common\models\WorkLogs\WorkLog;
 use common\models\Works\Processors\UrlMonitorProcessor;
 use common\models\Works\Work;
@@ -30,11 +31,12 @@ class WorkController extends Controller
         }
     }
 
-    public function actionRun(): void
+    public function actionRun(QueueService $queueService): void
     {
         $processor = new UrlMonitorProcessor();
-        foreach (WorkLog::find()->allNew()->all() as $workLog) {
-            $processor->process($workLog);
+        while ($job = $queueService->pop()) {
+            /* @var JobInterface $job */
+            $processor->process($job);
         }
     }
 }

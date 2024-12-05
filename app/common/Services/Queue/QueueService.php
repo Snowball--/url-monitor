@@ -41,6 +41,14 @@ class QueueService
         }
     }
 
+    public function pop(): \Generator
+    {
+        foreach ($this->jobService->getAll() as $job) {
+            yield $job;
+        }
+
+    }
+
     private function needToQueue(Work $work): bool
     {
         if ($this->cache->get($work->id)) {

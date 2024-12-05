@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace common\models\Works\Processors;
 
 use common\Exceptions\ValidationException;
+use common\models\Jobs\JobInterface;
 use common\models\WorkLogs\LogDetailInterface;
 use common\models\WorkLogs\UrlLogDetail;
 use common\models\WorkLogs\WorkLog;
@@ -23,7 +24,7 @@ use yii\log\Logger;
  * @author snowball <snow-snowball@yandex.ru>
  * @package common\models\Works\Processors
  */
-class UrlMonitorProcessor extends Model implements WorkProcessorInterface
+class UrlMonitorProcessor extends Model implements JobProcessorInterface
 {
     private static Client|null $client = null;
 
@@ -31,13 +32,18 @@ class UrlMonitorProcessor extends Model implements WorkProcessorInterface
      * @throws GuzzleException
      * @throws Throwable
      */
-    public function process(WorkLog $job): void
+    public function process(JobInterface $job): void
     {
         try {
             $httpClient = $this->getHttpClient();
-            $work = $job->getWork();
-            $response = $httpClient->request('GET', $work->getExtendedEntity()->url);
+            $params = $job->getParams();
+            $url = $params['details']['url'] ?? null;
 
+            if (!$url) {
+                throw new \DomainException("Undefined detail 'url'");
+            }
+
+            $response = $httpClient->request('GET', $url);
             $this->writeJobResult($job, $response);
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e, Logger::LEVEL_ERROR, 'console');

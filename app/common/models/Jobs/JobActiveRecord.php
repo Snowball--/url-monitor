@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace common\models\Jobs;
 
+use common\models\Jobs\ActiveQuery\JobQuery;
 use common\models\Works\Work;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
@@ -72,11 +73,20 @@ class JobActiveRecord extends ActiveRecord implements JobInterface
 
     public function getWork(): Work
     {
-        return $this->hasOne(Work::class, ['id' => 'work_id'])->one();
+        /* @var Work $work */
+        $work = $this->hasOne(Work::class, ['id' => 'work_id'])->one();
+        return $work;
     }
 
     public function getParams(): array
     {
-        return $this->params;
+        /* @var array $params */
+        $params = $this->params;
+        return $params;
+    }
+
+    public static function find(): JobQuery
+    {
+        return new JobQuery(JobActiveRecord::class);
     }
 }

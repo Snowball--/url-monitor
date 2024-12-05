@@ -6,6 +6,7 @@ use common\Exceptions\ValidationException;
 use common\models\Forms\AddJobFormInterface;
 use common\models\Jobs\JobActiveRecord;
 use common\models\Jobs\JobInterface;
+use Generator;
 use yii\base\Model;
 use yii\db\Exception;
 
@@ -26,5 +27,12 @@ class JobService extends Model
         }
 
         return $job;
+    }
+
+    public function getAll(): Generator
+    {
+        foreach (JobActiveRecord::find()->each() as $job) {
+            yield $job;
+        }
     }
 }
