@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace common\Services;
 
 use common\Exceptions\ValidationException;
-use common\models\Forms\AddWorkLogFormInterface;
+use common\models\Forms\AddJobFormInterface;
 use common\models\WorkLogs\WorkLog;
 
 /**
@@ -15,7 +15,7 @@ use common\models\WorkLogs\WorkLog;
  */
 class WorkLogService
 {
-    public function createLog(AddWorkLogFormInterface $form): WorkLog
+    public function createLog(AddJobFormInterface $form): WorkLog
     {
         $log = new WorkLog();
         $log->work_id = $form->getWorkId();

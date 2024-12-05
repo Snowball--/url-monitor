@@ -49,4 +49,11 @@ class MonitoredUrl extends \yii\db\ActiveRecord implements ExtendedWorkEntityInt
     {
         $this->id = $id;
     }
+
+    public function getDetails(): array
+    {
+        return [
+            'url' => $this->url
+        ];
+    }
 }

@@ -67,21 +67,16 @@ class Work extends ActiveRecord
         return WorkType::getType($this->type);
     }
 
-    public function getExtendedEntity(): ActiveRecord
+    public function getExtendedEntity(): ActiveRecord|ExtendedWorkEntityInterface
     {
         return $this->hasOne($this->getType()->getExtendedEntityClass(), ['id' => 'id'])->one();
     }
 
-    public function hasActiveJob(): bool
+    public function getLastLog(): ?WorkLog
     {
-        return WorkLog::find()->allActiveForWork($this)->count() > 0;
-    }
-
-    public function getLastJob(): ?WorkLog
-    {
-        /* @var WorkLog $lastJob */
-        $lastJob = WorkLog::find()->lastForWork($this)->one();
-        return $lastJob;
+        /* @var WorkLog $lastLog */
+        $lastLog = WorkLog::find()->lastForWork($this)->one();
+        return $lastLog;
     }
 
     public function beforeSave($insert): bool

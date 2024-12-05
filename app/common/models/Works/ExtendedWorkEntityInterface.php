@@ -7,4 +7,6 @@ interface ExtendedWorkEntityInterface
 {
     public function getId(): int;
     public function setId(int $id): void;
+
+    public function getDetails(): array;
 }
