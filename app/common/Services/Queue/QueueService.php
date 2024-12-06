@@ -36,10 +36,15 @@ class QueueService
         $this->cache = Yii::$app->cache;
     }
 
+    /**
+     * @throws Exception
+     * @throws Throwable
+     * @throws ValidationException
+     */
     public function addJob(Work $work): void
     {
         if ($this->needToQueue($work)) {
-            $log = $this->toQueue($work);
+            $this->toQueue($work);
         }
     }
 
@@ -89,7 +94,7 @@ class QueueService
             ];
 
             $job = $this->jobService->create($form);
-            $this->cache->set($data->getWorkId());
+            $this->cache->set($data->getWorkId(), true);
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e->getMessage(), Logger::LEVEL_ERROR);
             throw $e;
@@ -104,7 +109,14 @@ class QueueService
      */
     public function removeFromQueue(JobInterface $job): false|int
     {
-        return $this->jobService->delete($job);
+        try {
+            $result = $this->jobService->delete($job);
+            $this->cache->delete($job->getWork()->id);
+        } catch (Throwable $e) {
+            Yii::$app->log->logger->log($e->getMessage(), Logger::LEVEL_ERROR);
+            throw $e;
+        }
+        return $result;
     }
 
     public function all(): \Generator

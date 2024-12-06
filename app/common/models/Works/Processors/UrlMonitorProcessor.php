@@ -10,6 +10,7 @@ use common\models\WorkLogs\UrlLogDetail;
 use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
 use common\Services\JobService;
+use common\Services\Queue\QueueService;
 use common\Services\WorkLogService;
 use console\models\Forms\AddWorkLogForm;
 use GuzzleHttp\Client;
@@ -32,8 +33,9 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
     private static Client|null $client = null;
 
     public function __construct(
-        private readonly WorkLogService $workLogService
-        , $config = []
+        private readonly WorkLogService $workLogService,
+        private readonly QueueService $queueService,
+        $config = []
     ) {
         parent::__construct($config);
     }
@@ -56,10 +58,16 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
             }
 
             $response = $httpClient->request('GET', $url);
+
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e, Logger::LEVEL_ERROR, 'console');
         }
 
+        $log = $this->writeJobResult($job, $response);
+        $this->queueService->removeFromQueue($job);
+        if ($log->getState() === WorkLogState::FAIL) {
+            $this->queueService->toQueue($log);
+        }
         return $this->writeJobResult($job, $response);
     }
 

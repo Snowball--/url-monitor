@@ -68,10 +68,16 @@ class WorkLog extends ActiveRecord implements FitForJobInterface
         return $work;
     }
 
-    public function getDetails(): array|ActiveRecord|null
+    public function getDetailsInstance(): array|ActiveRecord|null
     {
         $work = $this->getWork();
-        return $this->hasOne($work->getType()->getLogDetailsClass(), ['id' => 'id'])->one();
+        $detailsClass = $work->getType()->getLogDetailsClass();
+        return $this->hasOne($detailsClass, ['id' => 'id'])->one();
+    }
+
+    public function getDetails(): array
+    {
+        return $this->getWork()->getExtendedEntity()->getDetails();
     }
 
     public function getDateCreated(): DateTimeImmutable
@@ -101,7 +107,7 @@ class WorkLog extends ActiveRecord implements FitForJobInterface
 
     public function getWorkId(): int
     {
-        $this->work_id;
+        return $this->work_id;
     }
 
     public function getType(): WorkType

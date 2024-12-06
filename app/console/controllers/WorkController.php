@@ -49,10 +49,6 @@ class WorkController extends Controller
         foreach ($queueService->all() as $job) {
             $processor = JobProcessorFactory::factory($job);
             $log = $processor->process($job);
-
-            if ($log->getState() === WorkLogState::FAIL) {
-                $queueService->toQueue();
-            }
         }
     }
 }
