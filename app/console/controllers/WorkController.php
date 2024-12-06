@@ -15,6 +15,7 @@ use common\Services\WorkLogService;
 use console\models\Forms\AddWorkLogForm;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 use yii\console\Controller;
 
 /**
@@ -39,8 +40,7 @@ class WorkController extends Controller
     }
 
     /**
-     * @throws GuzzleException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function actionRun(
         QueueService $queueService

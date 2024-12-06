@@ -65,10 +65,12 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
 
         $log = $this->writeJobResult($job, $response);
         $this->queueService->removeFromQueue($job);
+
         if ($log->getState() === WorkLogState::FAIL) {
             $this->queueService->toQueue($log);
         }
-        return $this->writeJobResult($job, $response);
+
+        return $log;
     }
 
     /**
