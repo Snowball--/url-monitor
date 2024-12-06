@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
  */
 class Work extends ActiveRecord implements FitForJobInterface
 {
+    public ?int $extendedEntityId = null;
+
     public function __construct($config = [])
     {
         parent::__construct($config);
@@ -86,6 +88,12 @@ class Work extends ActiveRecord implements FitForJobInterface
         }
 
         return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        $this->extendedEntityId = $this->id;
+        parent::afterFind();
     }
 
     public static function find(): WorkQuery
