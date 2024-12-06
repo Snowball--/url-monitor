@@ -7,8 +7,10 @@ use common\models\Forms\AddJobFormInterface;
 use common\models\Jobs\JobActiveRecord;
 use common\models\Jobs\JobInterface;
 use Generator;
+use Throwable;
 use yii\base\Model;
 use yii\db\Exception;
+use yii\db\StaleObjectException;
 
 class JobService extends Model
 {
@@ -27,6 +29,15 @@ class JobService extends Model
         }
 
         return $job;
+    }
+
+    /**
+     * @throws StaleObjectException
+     * @throws Throwable
+     */
+    public function delete(JobActiveRecord $job): false|int
+    {
+        return $job->delete();
     }
 
     public function getAll(): Generator

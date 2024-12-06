@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property string|null $date_created
  * @property int|null $is_active
  */
-class Work extends ActiveRecord
+class Work extends ActiveRecord implements FitForJobInterface
 {
     public function __construct($config = [])
     {
@@ -64,7 +64,7 @@ class Work extends ActiveRecord
 
     public function getType(): WorkType
     {
-        return WorkType::getType($this->type);
+        return WorkType::getTypeFromValue($this->type);
     }
 
     public function getExtendedEntity(): ActiveRecord|ExtendedWorkEntityInterface
@@ -91,5 +91,20 @@ class Work extends ActiveRecord
     public static function find(): WorkQuery
     {
         return new WorkQuery(static::class);
+    }
+
+    public function getWorkId(): int
+    {
+        return $this->id;
+    }
+
+    public function getAttemptNumber(): int
+    {
+        return 0;
+    }
+
+    public function getDetails(): array
+    {
+        return $this->getExtendedEntity()->getDetails();
     }
 }

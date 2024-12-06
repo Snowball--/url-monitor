@@ -2,7 +2,9 @@
 
 namespace common\models\WorkLogs;
 
+use common\Enums\WorkType;
 use common\models\WorkLogs\ActiveQuery\WorkLogQuery;
+use common\models\Works\FitForJobInterface;
 use common\models\Works\Work;
 use DateTimeImmutable;
 use yii\db\ActiveRecord;
@@ -16,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property string|null $state
  * @property int|null $attempt_number
  */
-class WorkLog extends ActiveRecord
+class WorkLog extends ActiveRecord implements FitForJobInterface
 {
     private ?DateTimeImmutable $dateCreated = null;
 
@@ -95,5 +97,20 @@ class WorkLog extends ActiveRecord
     public static function find(): WorkLogQuery
     {
         return new WorkLogQuery(static::class);
+    }
+
+    public function getWorkId(): int
+    {
+        $this->work_id;
+    }
+
+    public function getType(): WorkType
+    {
+        return $this->getWork()->getType();
+    }
+
+    public function getAttemptNumber(): int
+    {
+        return $this->attempt_number;
     }
 }

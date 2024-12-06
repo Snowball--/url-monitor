@@ -23,7 +23,7 @@ enum WorkType: string
         };
     }
 
-    public static function getType(string $type): WorkType
+    public static function getTypeFromValue(string $type): WorkType
     {
         return match ($type) {
             WorkType::URL->value => WorkType::URL,

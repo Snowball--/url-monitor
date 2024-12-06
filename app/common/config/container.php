@@ -15,6 +15,6 @@ return [
         WorkLogService::class => WorkLogService::class,
         QueueService::class => QueueService::class,
         QueueDataProviderInterface::class => BaseDataProvider::class,
-        JobProcessorInterface::class => UrlMonitorProcessor::class
+        UrlMonitorProcessor::class => UrlMonitorProcessor::class,
     ]
 ];

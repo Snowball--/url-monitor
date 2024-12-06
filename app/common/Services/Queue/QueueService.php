@@ -7,6 +7,7 @@ use common\Exceptions\ValidationException;
 use common\models\Jobs\JobInterface;
 use common\models\WorkLogs\WorkLog;
 use common\models\WorkLogs\WorkLogState;
+use common\models\Works\FitForJobInterface;
 use common\models\Works\Work;
 use common\Services\JobService;
 use common\Services\Queue\QueueDataProvider\QueueDataProviderInterface;
@@ -16,6 +17,7 @@ use Throwable;
 use Yii;
 use yii\caching\CacheInterface;
 use yii\db\Exception;
+use yii\db\StaleObjectException;
 use yii\log\Logger;
 
 /**
@@ -39,14 +41,6 @@ class QueueService
         if ($this->needToQueue($work)) {
             $log = $this->toQueue($work);
         }
-    }
-
-    public function pop()
-    {
-        foreach ($this->jobService->getAll() as $job) {
-            return $job;
-        }
-
     }
 
     private function needToQueue(Work $work): bool
@@ -83,24 +77,38 @@ class QueueService
      * @throws ValidationException|Exception
      * @throws Throwable
      */
-    private function toQueue(Work $work): JobInterface
+    public function toQueue(FitForJobInterface $data): JobInterface
     {
         try {
             $form = new AddJobForm();
-            $form->workId = $work->id;
+            $form->workId = $data->getWorkId();
             $form->params = [
-                'type' => $work->getType()->value,
-                'attempt_number' => 1,
-                'details' => $work->getExtendedEntity()?->getDetails()
+                'type' => $data->getType()->value,
+                'attempt_number' => $data->getAttemptNumber() + 1,
+                'details' => $data->getDetails()
             ];
 
             $job = $this->jobService->create($form);
-            $this->cache->set($work->id, true);
+            $this->cache->set($data->getWorkId());
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e->getMessage(), Logger::LEVEL_ERROR);
             throw $e;
         }
 
         return $job;
+    }
+
+    /**
+     * @throws StaleObjectException
+     * @throws Throwable
+     */
+    public function removeFromQueue(JobInterface $job): false|int
+    {
+        return $this->jobService->delete($job);
+    }
+
+    public function all(): \Generator
+    {
+        return $this->jobService->getAll();
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace common\models\Jobs;
 
+use common\Enums\WorkType;
 use common\models\Jobs\ActiveQuery\JobQuery;
 use common\models\Works\Work;
 use yii\db\ActiveRecord;
@@ -88,5 +89,11 @@ class JobActiveRecord extends ActiveRecord implements JobInterface
     public static function find(): JobQuery
     {
         return new JobQuery(JobActiveRecord::class);
+    }
+
+    public function getType(): WorkType
+    {
+        $type = $this->getParams()['type'] ?? $this->getWork()->getType()->value;
+        return WorkType::getTypeFromValue($type);
     }
 }
