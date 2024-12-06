@@ -1,11 +1,10 @@
 <?php
 
-namespace common\models\WorkLogs;
+namespace common\models\Works;
 
+use common\Enums\WorkLogState;
 use common\Enums\WorkType;
-use common\models\WorkLogs\ActiveQuery\WorkLogQuery;
-use common\models\Works\FitForJobInterface;
-use common\models\Works\Work;
+use common\models\Works\ActiveQuery\WorkLogQuery;
 use DateTimeImmutable;
 use yii\db\ActiveRecord;
 

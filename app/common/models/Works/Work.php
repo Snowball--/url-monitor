@@ -2,9 +2,8 @@
 
 namespace common\models\Works;
 
+use common\Enums\WorkLogState;
 use common\Enums\WorkType;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
 use common\models\Works\ActiveQuery\WorkQuery;
 use yii\db\ActiveRecord;
 

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-use common\models\WorkLogs\WorkLog;
+use common\models\Works\WorkLog;
 use yii\data\ActiveDataProvider;
 
 /* @var ActiveDataProvider $dataProvider */

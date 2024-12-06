@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\WorkLogs;
+namespace common\models\Works;
 
 interface LogDetailInterface
 {

@@ -3,7 +3,7 @@
 namespace common\models\Works\Processors;
 
 use common\Enums\WorkType;
-use common\models\Jobs\JobInterface;
+use common\models\Works\JobInterface;
 
 class JobProcessorFactory
 {

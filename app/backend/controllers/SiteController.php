@@ -2,15 +2,10 @@
 
 namespace backend\controllers;
 
-use common\models\LoginForm;
-use common\models\WorkLogs\WorkLog;
 use common\models\Works\Work;
-use Yii;
+use common\models\Works\WorkLog;
 use yii\data\ActiveDataProvider;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 
 /**
  * Site controller

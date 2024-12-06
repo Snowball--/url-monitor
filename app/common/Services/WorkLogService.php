@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace common\Services;
 
+use common\Enums\WorkLogState;
 use common\Exceptions\ValidationException;
-use common\models\Forms\AddJobFormInterface;
 use common\models\Forms\AddWorkLogFormInterface;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
+use common\models\Works\WorkLog;
 use Throwable;
 use Yii;
 use yii\db\Exception;

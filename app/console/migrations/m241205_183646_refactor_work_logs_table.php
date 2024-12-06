@@ -1,6 +1,6 @@
 <?php
 
-use common\models\WorkLogs\WorkLog;
+use common\models\Works\WorkLog;
 use yii\db\Migration;
 
 class m241205_183646_refactor_work_logs_table extends Migration

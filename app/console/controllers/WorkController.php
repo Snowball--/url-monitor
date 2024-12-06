@@ -3,18 +3,9 @@ declare(strict_types=1);
 
 namespace console\controllers;
 
-use common\models\Jobs\JobInterface;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
 use common\models\Works\Processors\JobProcessorFactory;
-use common\models\Works\Processors\JobProcessorInterface;
-use common\models\Works\Processors\UrlMonitorProcessor;
 use common\models\Works\Work;
 use common\Services\Queue\QueueService;
-use common\Services\WorkLogService;
-use console\models\Forms\AddWorkLogForm;
-use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use yii\console\Controller;
 

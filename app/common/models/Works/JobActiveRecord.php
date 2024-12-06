@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace common\models\Jobs;
+namespace common\models\Works;
 
 use common\Enums\WorkType;
-use common\models\Jobs\ActiveQuery\JobQuery;
-use common\models\Works\Work;
+use common\models\Works\ActiveQuery\JobQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 

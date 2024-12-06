@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace common\models\Works\Processors;
 
-use common\models\Jobs\JobInterface;
-use common\models\WorkLogs\WorkLog;
+use common\models\Works\JobInterface;
+use common\models\Works\WorkLog;
 
 interface JobProcessorInterface
 {

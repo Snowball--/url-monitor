@@ -4,8 +4,8 @@ namespace common\Services;
 
 use common\Exceptions\ValidationException;
 use common\models\Forms\AddJobFormInterface;
-use common\models\Jobs\JobActiveRecord;
-use common\models\Jobs\JobInterface;
+use common\models\Works\JobActiveRecord;
+use common\models\Works\JobInterface;
 use Generator;
 use Throwable;
 use yii\base\Model;

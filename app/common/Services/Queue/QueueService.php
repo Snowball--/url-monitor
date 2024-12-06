@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace common\Services\Queue;
 
+use common\Enums\WorkLogState;
 use common\Exceptions\ValidationException;
-use common\models\Jobs\JobInterface;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
 use common\models\Works\FitForJobInterface;
+use common\models\Works\JobInterface;
 use common\models\Works\Work;
 use common\Services\JobService;
-use common\Services\Queue\QueueDataProvider\QueueDataProviderInterface;
 use console\models\Forms\AddJobForm;
 use DateTime;
 use Throwable;

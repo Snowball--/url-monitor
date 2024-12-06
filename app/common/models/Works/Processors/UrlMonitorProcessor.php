@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace common\models\Works\Processors;
 
+use common\Enums\WorkLogState;
 use common\Exceptions\ValidationException;
-use common\models\Jobs\JobInterface;
-use common\models\WorkLogs\LogDetailInterface;
-use common\models\WorkLogs\UrlLogDetail;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
-use common\Services\JobService;
+use common\models\Works\JobInterface;
+use common\models\Works\WorkLog;
 use common\Services\Queue\QueueService;
 use common\Services\WorkLogService;
 use console\models\Forms\AddWorkLogForm;

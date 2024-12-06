@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace console\models\Forms;
 
 use common\models\Forms\AddJobFormInterface;
-use common\models\WorkLogs\WorkLogState;
 use yii\base\Model;
 
 /**

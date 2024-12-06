@@ -2,9 +2,9 @@
 
 namespace common\models\Forms;
 
-use common\models\WorkLogs\LogDetailInterface;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
+use common\Enums\WorkLogState;
+use common\models\Works\LogDetailInterface;
+use common\models\Works\WorkLog;
 
 interface AddWorkLogFormInterface
 {

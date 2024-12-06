@@ -1,6 +1,6 @@
 <?php
 
-use common\models\WorkLogs\WorkLog;
+use common\models\Works\WorkLog;
 use yii\db\Migration;
 
 class m241204_120548_change_work_logs_table extends Migration

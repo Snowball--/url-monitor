@@ -1,6 +1,6 @@
 <?php
 
-use common\models\WorkLogs\WorkLog;
+use common\models\Works\WorkLog;
 use yii\db\Migration;
 
 class m241206_123502_add_error_data_to_log extends Migration

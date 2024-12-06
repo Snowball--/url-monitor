@@ -2,7 +2,7 @@
 
 namespace common\Services\Queue\QueueDataProvider;
 
-use common\models\Jobs\JobInterface;
+use common\models\Works\JobInterface;
 
 interface QueueDataProviderInterface
 {

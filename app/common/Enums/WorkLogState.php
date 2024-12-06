@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace common\models\WorkLogs;
+namespace common\Enums;
 
 enum WorkLogState: string
 {

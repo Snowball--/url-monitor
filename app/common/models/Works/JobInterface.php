@@ -1,9 +1,8 @@
 <?php
 
-namespace common\models\Jobs;
+namespace common\models\Works;
 
 use common\Enums\WorkType;
-use common\models\Works\Work;
 
 interface JobInterface
 {

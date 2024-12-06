@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\Jobs\ActiveQuery;
+namespace common\models\Works\ActiveQuery;
 
 use yii\db\ActiveQuery;
 

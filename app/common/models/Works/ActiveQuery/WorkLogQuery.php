@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace common\models\WorkLogs\ActiveQuery;
+namespace common\models\Works\ActiveQuery;
 
-use common\models\WorkLogs\WorkLogState;
+use common\Enums\WorkLogState;
 use common\models\Works\Work;
 use yii\db\ActiveQuery;
 

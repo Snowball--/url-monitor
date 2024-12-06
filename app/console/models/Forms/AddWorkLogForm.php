@@ -2,11 +2,11 @@
 
 namespace console\models\Forms;
 
+use common\Enums\WorkLogState;
 use common\Exceptions\ValidationException;
 use common\models\Forms\AddWorkLogFormInterface;
-use common\models\WorkLogs\LogDetailInterface;
-use common\models\WorkLogs\WorkLog;
-use common\models\WorkLogs\WorkLogState;
+use common\models\Works\LogDetailInterface;
+use common\models\Works\WorkLog;
 use Psr\Http\Message\ResponseInterface;
 use yii\base\Model;
 use yii\db\ActiveRecord;

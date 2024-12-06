@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\WorkLogs;
+namespace common\models\Works;
 
 use Psr\Http\Message\ResponseInterface;
 
