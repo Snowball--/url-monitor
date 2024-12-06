@@ -10,10 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="container">
 
-    <?php $form = ActiveForm::begin([
-            'layout' => 'horizontal'
-
-    ]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'url') ?>
         <?= $form->field($model, 'frequency') ?>
