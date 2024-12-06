@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'url') ?>
-        <?= $form->field($model, 'frequency') ?>
+        <?= $form->field($model, 'frequency')->dropDownList([1 => 1, 5 => 5, 10 =>10]) ?>
         <?= $form->field($model, 'onErrorRepeatCount') ?>
         <?= $form->field($model, 'onErrorRepeatDelay') ?>
     
