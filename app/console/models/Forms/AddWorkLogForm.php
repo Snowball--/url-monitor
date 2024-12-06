@@ -44,16 +44,19 @@ class AddWorkLogForm extends Model implements AddWorkLogFormInterface
      * @throws Exception
      * @throws ValidationException
      */
-    public function writeDetailedData(WorkLog $log): LogDetailInterface
+    public function writeDetailedData(WorkLog $log): ?LogDetailInterface
     {
-        $detailsClass = $log->getWork()->getType()->getLogDetailsClass();
-        /* @var LogDetailInterface&ActiveRecord $entity */
-        $entity = new $detailsClass();
-        $entity->setId($log->id);
-        $entity->fillDetailWithData($this->getDetailedData());
+        $entity = null;
+        if ($this->getDetailedData() instanceof ResponseInterface) {
+            $detailsClass = $log->getWork()->getType()->getLogDetailsClass();
+            /* @var LogDetailInterface&ActiveRecord $entity */
+            $entity = new $detailsClass();
+            $entity->setId($log->id);
+            $entity->fillDetailWithData($this->getDetailedData());
 
-        if (!$entity->save()) {
-            throw new ValidationException($entity);
+            if (!$entity->save()) {
+                throw new ValidationException($entity);
+            }
         }
 
         return $entity;

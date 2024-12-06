@@ -1,15 +1,16 @@
 <?php
 declare(strict_types=1);
 
-/* @var ActiveDataProvider $dataProvider */
 
 use common\models\Works\Work;
 use yii\data\ActiveDataProvider;
 
+/* @var ActiveDataProvider $dataProvider */
+
 ?>
 
-<?php
-    echo \yii\grid\GridView::widget([
+<?=
+    \yii\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             'id',

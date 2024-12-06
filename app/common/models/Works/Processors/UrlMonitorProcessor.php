@@ -61,14 +61,11 @@ class UrlMonitorProcessor extends Model implements JobProcessorInterface
 
         } catch (Throwable $e) {
             Yii::$app->log->logger->log($e, Logger::LEVEL_ERROR, 'console');
+            $response = $e->getMessage();
         }
 
         $log = $this->writeJobResult($job, $response);
         $this->queueService->removeFromQueue($job);
-
-        if ($log->getState() === WorkLogState::FAIL) {
-            $this->queueService->toQueue($log);
-        }
 
         return $log;
     }

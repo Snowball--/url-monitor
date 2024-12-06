@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string|null $date_created
  * @property string|null $state
  * @property int|null $attempt_number
+ * @property string|null $error_data
  */
 class WorkLog extends ActiveRecord implements FitForJobInterface
 {

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\WorkLogs\WorkLog;
 use common\models\Works\Work;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -43,6 +44,19 @@ class SiteController extends Controller
             ]
         ]);
         return $this->render('works', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionLogs(): string
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => WorkLog::find()->orderBy(['id' => SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 10
+            ]
+        ]);
+        return $this->render('logs', [
             'dataProvider' => $dataProvider
         ]);
     }

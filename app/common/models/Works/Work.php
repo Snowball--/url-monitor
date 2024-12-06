@@ -4,6 +4,7 @@ namespace common\models\Works;
 
 use common\Enums\WorkType;
 use common\models\WorkLogs\WorkLog;
+use common\models\WorkLogs\WorkLogState;
 use common\models\Works\ActiveQuery\WorkQuery;
 use yii\db\ActiveRecord;
 
@@ -108,7 +109,16 @@ class Work extends ActiveRecord implements FitForJobInterface
 
     public function getAttemptNumber(): int
     {
-        return 0;
+        $attemptNumber = 0;
+        $lastLog = $this->getLastLog();
+        if ($lastLog
+            && $lastLog->getState() === WorkLogState::FAIL
+            && $lastLog->attempt_number < $this->on_error_repeat_count
+        ) {
+            $attemptNumber = $lastLog->attempt_number;
+        }
+
+        return $attemptNumber;
     }
 
     public function getDetails(): array
