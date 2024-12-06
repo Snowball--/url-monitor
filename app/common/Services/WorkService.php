@@ -5,7 +5,7 @@ namespace common\Services;
 
 use common\Exceptions\ValidationException;
 use common\models\Forms\AddWorkFormInterface;
-use common\models\Works\ExtendedWorkEntityInterface;
+use common\models\Works\ExtendedEntities\ExtendedWorkEntityInterface;
 use common\models\Works\Work;
 use Throwable;
 use yii\db\ActiveRecord;

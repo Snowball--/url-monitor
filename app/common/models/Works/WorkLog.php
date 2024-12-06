@@ -4,7 +4,7 @@ namespace common\models\Works;
 
 use common\Enums\WorkLogState;
 use common\Enums\WorkType;
-use common\models\Works\ActiveQuery\WorkLogQuery;
+use common\models\ActiveQuery\WorkLogQuery;
 use DateTimeImmutable;
 use yii\db\ActiveRecord;
 

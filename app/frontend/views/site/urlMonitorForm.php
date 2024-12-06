@@ -8,9 +8,12 @@ use yii\widgets\ActiveForm;
 /** @var ActiveForm $form */
 ?>
 
-<div class="url_monitor_form">
+<div class="container">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'layout' => 'horizontal'
+
+    ]); ?>
 
         <?= $form->field($model, 'url') ?>
         <?= $form->field($model, 'frequency') ?>

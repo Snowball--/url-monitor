@@ -3,7 +3,7 @@
 namespace common\models\Forms;
 
 use common\Enums\WorkLogState;
-use common\models\Works\LogDetailInterface;
+use common\models\Works\LogDetails\LogDetailInterface;
 use common\models\Works\WorkLog;
 
 interface AddWorkLogFormInterface

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace common\models\Works\ActiveQuery;
+namespace common\models\ActiveQuery;
 
 use common\Enums\WorkActivity;
 use common\models\Works\Work;

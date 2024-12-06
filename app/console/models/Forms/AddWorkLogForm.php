@@ -5,7 +5,7 @@ namespace console\models\Forms;
 use common\Enums\WorkLogState;
 use common\Exceptions\ValidationException;
 use common\models\Forms\AddWorkLogFormInterface;
-use common\models\Works\LogDetailInterface;
+use common\models\Works\LogDetails\LogDetailInterface;
 use common\models\Works\WorkLog;
 use Psr\Http\Message\ResponseInterface;
 use yii\base\Model;

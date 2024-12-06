@@ -2,8 +2,8 @@
 
 namespace common\Enums;
 
-use common\models\Works\MonitoredUrl;
-use common\models\Works\UrlLogDetail;
+use common\models\Works\ExtendedEntities\MonitoredUrl;
+use common\models\Works\LogDetails\UrlLogDetail;
 
 enum WorkType: string
 {

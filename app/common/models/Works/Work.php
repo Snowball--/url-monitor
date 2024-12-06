@@ -4,7 +4,8 @@ namespace common\models\Works;
 
 use common\Enums\WorkLogState;
 use common\Enums\WorkType;
-use common\models\Works\ActiveQuery\WorkQuery;
+use common\models\ActiveQuery\WorkQuery;
+use common\models\Works\ExtendedEntities\ExtendedWorkEntityInterface;
 use yii\db\ActiveRecord;
 
 /**

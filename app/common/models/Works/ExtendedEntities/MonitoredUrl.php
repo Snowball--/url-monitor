@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\Works;
+namespace common\models\Works\ExtendedEntities;
 
 /**
  * This is the model class for table "monitored_urls".

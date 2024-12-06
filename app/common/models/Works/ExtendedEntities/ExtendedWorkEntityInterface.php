@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace common\models\Works;
+namespace common\models\Works\ExtendedEntities;
 
 interface ExtendedWorkEntityInterface
 {

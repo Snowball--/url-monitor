@@ -1,7 +1,8 @@
 <?php
 
-namespace common\models\Works;
+namespace common\models\Works\LogDetails;
 
+use common\models\Works\WorkLog;
 use Psr\Http\Message\ResponseInterface;
 
 /**

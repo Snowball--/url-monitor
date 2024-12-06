@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace common\models\Works;
 
 use common\Enums\WorkType;
-use common\models\Works\ActiveQuery\JobQuery;
+use common\models\ActiveQuery\JobQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 
